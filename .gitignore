@@ -1,0 +1,8 @@
+*.s 
+*.o 
+*.swp 
+*.gch
+*.pdf
+*.DS_Store 
+*.out
+
