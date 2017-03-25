@@ -5,6 +5,9 @@
 #include <cstdlib>
 #include "algo.h"
 
+#define SIZE  10000
+#define RANGE  500
+
 using std::cout;
 using std::endl;
 using std::to_string;
@@ -28,7 +31,7 @@ int * gen_intarray(int size, int range){
 	int * array = new int[size];
 
 	for(int i = 0 ; i < size; i++){ 
-		array[i] = rand() % range;
+		array[i] = (rand() % range) + 1;
 
 	} 
 
@@ -44,14 +47,46 @@ char * gen_chrarray(int size, int range){
 	char * array = new char[size];
 
 	for(int i = 0 ; i < size; i++){ 
-		array[i] = char(rand() % range);
+		array[i] = char(rand() % range) + 1;
 
 	} 
 
 return array;
 }
 
+//partitioning algorithm TODO = fix it its broken  
+template<class T>
+void partition(T a[], int piviot, int start, int stop){ 
+	
+	T * tmp  = new T[stop - start]; 
+	int backset = stop;
+	int offset = 0; 
+	int i = 0;	
+	for (i; i < stop; i++){ 
 
+		if(a[i] < a[piviot]){
+			tmp[offset] = a[i];
+			offset++;
+		}
+		if(a[i] > a[piviot]){ 
+			tmp[backset] = a[i];
+			backset--;
+		}
+		else{ //equal in value to the piviot 
+			tmp[offset] = a[i]; 
+			offset++;	
+	}
+	
+	tmp[offset] = a[piviot];
+
+	}
+
+
+	std::copy(tmp, tmp + i , a+start);	
+	delete[]  tmp;
+}
+
+//myswap function 
 
 #endif
 

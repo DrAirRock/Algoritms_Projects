@@ -32,38 +32,9 @@ void partition(T a, int p, int start , int stop){
 	
 	}
 }
-/*
-template<class T> 
-void partition(T a[], int pivot, int start, int stop){
-       cout<< "partition" ;	
-	Swap_t( a , start, pivot);
-		//moves pivio to the start 
-	T * temp = new T[stop - start];  //dynamicaly allocate array name 
-	int k = 0; //next avalible postition in temp 
-	for( int i = start + 1; i < stop; ++i){ 
-
-		if(a[i] <= a[start]){
-			temp[k] = a[i]; //taking everything less than the pivot and setting it to temp 	
-			++k;
-		}
-	}
-	temp[k] = a[start]; //start is the piviot 
-	pivot = start + k; //final index in the array
-	++k;
-
-	for( int i = start + 1; i < stop; ++i){
-		if (!(a[i] < a[start])){
-			temp[k]  = a[i];
-			++k;
-		}
-	}
-	copy(temp, temp + k, a + start); 
-	delete temp; 
 
 
 
-}
-*/
 template <class T>
 void quick_sort(T a[], int start, int stop){
 
@@ -100,8 +71,7 @@ int main (){
 	int a[7] = {60 , 12, 37, 42, 25, 38, 16};
 	a_print(a,7);	
 	quick_sort(a,0,7);
-	cout<< "hello";
-	
+	cout<< "hello";	
 	a_print(a,7);
 	return 0;
 }
