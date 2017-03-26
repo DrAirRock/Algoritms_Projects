@@ -8,6 +8,8 @@
 #define SIZE  10000
 #define RANGE  500
 
+
+//I know ... for debugging
 using std::cout;
 using std::endl;
 using std::to_string;
@@ -15,9 +17,17 @@ using std::to_string;
 
 template <class T> 
 void  a_print(const T array[], int size){ 
-	
+
+	cout <<"print\n";
 	for(int i = 0; i < size  ; i++){
-		std::cout << array[i] << " ";
+	
+		cout <<"befoe call to cout!!!!!!!!!!!!\n";
+		if(array[i] != NULL){
+			
+			std::cout << array[i] << " ";
+
+	
+		}
 	}
 	std::cout << std::endl;
 }
@@ -58,31 +68,37 @@ return array;
 template<class T>
 void partition(T a[], int piviot, int start, int stop){ 
 	
+	cout<<"hello\n";
 	T * tmp  = new T[stop - start]; 
-	int backset = stop;
+	int backset = stop - 1;
 	int offset = 0; 
 	int i = 0;	
+	cout<<"PIVOT: " << piviot;
 	for (i; i < stop; i++){ 
 
 		if(a[i] < a[piviot]){
 			tmp[offset] = a[i];
-			offset++;
+			++offset;
 		}
 		if(a[i] > a[piviot]){ 
 			tmp[backset] = a[i];
-			backset--;
+			--backset;
 		}
 		else{ //equal in value to the piviot 
 			tmp[offset] = a[i]; 
-			offset++;	
+			++offset;	
+		} 
+	
+
 	}
 	
 	tmp[offset] = a[piviot];
-
-	}
-
-
-	std::copy(tmp, tmp + i , a+start);	
+	cout<<"PARTITION";
+	
+	a_print(tmp,stop);
+	std::copy(tmp, tmp + i , a);	
+	
+	a_print(a,stop);
 	delete[]  tmp;
 }
 
