@@ -31,6 +31,21 @@ void  a_print(const T array[], int size){
 }
 
 
+template <class T> 
+void  a_print(const T array[],int start, int stop){ 
+
+	for(int i = start; i < stop  ; i++){
+	
+		if(array[i] != NULL){
+			
+			std::cout << array[i] << " ";
+
+	
+		}
+	}
+	std::cout << std::endl;
+}
+
 
 
 // returns an array with 
@@ -66,12 +81,15 @@ return array;
 template<class T>
 void partition(T a[], int piviot, int start, int stop){ 
 	
-//	a_print(a,stop);
+	cout <<"\nPIVOT: " <<  a[piviot] << "\n";
+//kj:w
+	cout<<"PASSED IN:   ";	
+	a_print(a,start,stop);
 	T * tmp  = new T[stop - start]; 	
 	int backset =( stop - start)  - 1;
 	int offset = 0; 
 	int i; 
-	for (i = start   ; i < stop ; ++i){ 
+	for (i = start  ; i <stop ; ++i){ 
 		
 		if( i != piviot){
 			
@@ -98,7 +116,13 @@ void partition(T a[], int piviot, int start, int stop){
 		}
 	}	
 	tmp[offset] = a[piviot];
+	cout << "TEMP:        "	;
+	a_print(tmp, stop-start);
+	cout <<"BEFORE COPY: ";		
+	a_print(a, start, stop);
 	std::copy(tmp, tmp + (stop - start) , a + start);		
+	cout << "AFTER COPY:  ";	
+	a_print(a,start,stop);
 	delete tmp;
 }
 
