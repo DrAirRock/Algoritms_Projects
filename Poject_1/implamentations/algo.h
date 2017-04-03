@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include "Integer.h" 
 #include "algo.h"
 
 #define SIZE  1000
@@ -49,11 +50,13 @@ void  a_print(const T array[],int start, int stop){
 
 
 // returns an array with 
-int * gen_intarray(int size, int range){ 
+Integer * gen_intarray(int size, int range){ 
+	cout << "hello";	
+	//Integer * array = new Integer[size]; 
+	Integer array[size]; 
 	
-	int * array = new int[size];
-
 	for(int i = 0 ; i < size; i++){ 
+	
 		array[i] = (rand() % range) + 1;
 
 	} 

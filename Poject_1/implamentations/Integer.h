@@ -45,24 +45,29 @@ class Integer{
 
 // Implementation of copy constructor
 inline Integer::Integer(const Integer &x){
+
 	value_ = x.value();
 	++Integer_count;
+
 }
 
 
 //Implementation of operator <
 inline bool Integer::operator<(const Integer &x){
+	
 	++Integer_count;
 	return (value_ < x.value());
+
 }
 
 
 //Implementation of operator =
 inline void Integer::operator=(const Integer &x){
+
 	++Integer_count;
 	value_ = x.value();
-}
 
+}
 
 
 #endif

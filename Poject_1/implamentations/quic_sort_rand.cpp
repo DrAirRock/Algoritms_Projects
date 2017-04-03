@@ -15,7 +15,7 @@ void Swap_t(T a, T s , T  p){
 
 }
 
-
+/*
 template<class T> 
 void partition(T a, int p, int start , int stop){ 
 	
@@ -32,25 +32,20 @@ void partition(T a, int p, int start , int stop){
 	
 	}
 }
-
+*/
 
 
 template <class T>
 void quick_sort(T a[], int start, int stop){
 
 	cout<<"in quicksort";
-
-	int * p; 
-	p = gen_array(100,5); 
-	a_print(p,100);
 	
 	if( stop - start >= 1){
 		int pivot = start + rand() % (stop - start);			
 		cout<<"\npivot:" << pivot << endl;	
 	
 	 	a_print(a,stop);
-		partition( a , pivot, stop, stop);	
-		 
+		partition( a , pivot, stop, stop);	 
 		quick_sort( a , start, pivot);
 		quick_sort( a , pivot + 1, stop);
 	
@@ -73,6 +68,7 @@ int main (){
 	quick_sort(a,0,7);
 	cout<< "hello";	
 	a_print(a,7);
+
 	return 0;
 }
 
