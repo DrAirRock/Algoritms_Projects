@@ -77,6 +77,39 @@ char * gen_chrarray(int size, int range){
 return array;
 }
 
+
+
+template<class T>
+void partition(T a[], int start, int stop, int pivot){
+	// Create parameter indices
+	int p = 0;
+	int q = 0;
+
+	// Must swap pivot with the last element
+	int last = stop-1;
+	std::swap( a[pivot], a[last] );
+	
+	// Get value of the pivot
+	int pivotVal = a[last];
+
+	// Partitioning
+	while (q < last){
+		if (a[q] <= pivotVal){
+			std::swap( a[p], a[q] );
+			++p;
+		}
+		++q;
+	}
+
+	// Put pivot between partitions
+	std::swap( a[p], a[last] );
+	pivot = p;
+}
+	
+
+
+
+/*
 //partitioning algorithm TODO = fix it its broken  
 template<class T>
 void partition(T a[], int piviot, int start, int stop){ 
@@ -125,7 +158,7 @@ void partition(T a[], int piviot, int start, int stop){
 	a_print(a,start,stop);
 	delete tmp;
 }
-
+*/
 
 
 //myswap function 
