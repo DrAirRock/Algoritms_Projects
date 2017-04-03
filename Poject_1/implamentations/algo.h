@@ -6,7 +6,7 @@
 #include "Integer.h" 
 #include "algo.h"
 
-#define SIZE  1000
+#define SIZE  10000
 #define RANGE  500
 
 
@@ -31,7 +31,7 @@ void  a_print(const T array[], int size){
 	std::cout << std::endl;
 }
 
-
+//FORE DEBUGGING
 template <class T> 
 void  a_print(const T array[],int start, int stop){ 
 
@@ -42,18 +42,31 @@ void  a_print(const T array[],int start, int stop){
 			std::cout << array[i] << " ";
 
 	
-		}
+		}	
 	}
 	std::cout << std::endl;
 }
 
 
+//for printing INTEGER arrays
+template <class T> 
+void a_print_integer(const T array[], int size){ 
 
-// returns an array with 
-Integer * gen_intarray(int size, int range){ 
-	cout << "hello";	
+	for(int i = 0; i < size  ; i++){
+			
+		 std::cout << array[i].value()  << " ";
+
+	
+	}
+	std::cout << std::endl;
+}
+
+
+//Generation of INGETEER ARRAYSJ
+Integer * gen_integerarray(int size, int range){ 
+	
 	//Integer * array = new Integer[size]; 
-	Integer array[size]; 
+	 Integer * array = new Integer[size]; 
 	
 	for(int i = 0 ; i < size; i++){ 
 	
@@ -61,19 +74,18 @@ Integer * gen_intarray(int size, int range){
 
 	} 
 
+
 return array;
 }
 
 
-//this is broken 
-//
-
-char * gen_chrarray(int size, int range){ 
+int * gen_intarray(int size, int range){ 
 	
-	char * array = new char[size];
+	int * array = new int[size];
 
 	for(int i = 0 ; i < size; i++){ 
-		array[i] = char(rand() % range) + 1;
+		
+		array[i] = (rand() % range) + 1;
 
 	} 
 
@@ -123,14 +135,14 @@ void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
 	// Create parameter indices
 	int p = 0;
 	int q = 0;
-
+//	cout<<"before swap";
 	// Must swap pivot with the last element
 	int last = stop-1;
 	std::swap( a[pivot], a[last] );
-	
+//	cout<<"after swap";	
 	// Get value of the pivot
 	T pivotVal = a[last];
-
+//	cout << "after piviot\n"; 
 	// Partitioning step
 	while (q < last){
 		if (a[q] < pivotVal){
@@ -140,67 +152,13 @@ void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
 		++q;
 	}
 
-	// Put pivot between partitions
+	// put pivot between partitions
 	std::swap( a[p], a[last] );
 	pivot = p;
 }
 	
 
 
-
-/*
-//partitioning algorithm TODO = fix it its broken  
-template<class T>
-void partition(T a[], int piviot, int start, int stop){ 
-	
-	cout <<"\nPIVOT: " <<  a[piviot] << "\n";
-//kj:w
-	cout<<"PASSED IN:   ";	
-	a_print(a,start,stop);
-	T * tmp  = new T[stop - start]; 	
-	int backset =( stop - start)  - 1;
-	int offset = 0; 
-	int i; 
-	for (i = start  ; i <stop ; ++i){ 
-		
-		if( i != piviot){
-			
-			if(a[i] < a[piviot]){
-				
-				tmp[offset] = a[i];
-				++offset;
-			
-			}
-			else if(a[i] > a[piviot]){ 
-			
-				tmp[backset] = a[i];
-				--backset;
-			
-			}
-			else{ //equal in value to the piviot 
-		
-				tmp[offset] = a[i]; 
-				++offset;	
-		
-			} 
-		
-
-		}
-	}	
-	tmp[offset] = a[piviot];
-	cout << "TEMP:        "	;
-	a_print(tmp, stop-start);
-	cout <<"BEFORE COPY: ";		
-	a_print(a, start, stop);
-	std::copy(tmp, tmp + (stop - start) , a + start);		
-	cout << "AFTER COPY:  ";	
-	a_print(a,start,stop);
-	delete tmp;
-}
-*/
-
-
-//myswap function 
 
 #endif
 
