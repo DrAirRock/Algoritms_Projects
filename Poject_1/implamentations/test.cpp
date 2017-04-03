@@ -1,5 +1,6 @@
 #include <iostream> 
 #include "algo.h"
+#include "Integer.h"
 
 using std::cout; 
 
@@ -12,13 +13,13 @@ int main(){
 	a_print(p,size);
 */
 
-	int a[10];
+	Integer a[10];
 	a[0] = 17;
 	a[1] = 72;
 	a[2] = 13;
 	a[3] = 0;
 	a[4] = 52;
-	a[5] = 100;
+	a[5] = 52;
 	a[6] = 2;
 	a[7] = 1;
 	a[8] = 63;
@@ -28,15 +29,17 @@ int main(){
 
 	cout << "Before partition:\n";
 	for(int i=0; i<10; i++)
-		cout << a[i] << '\n';
+		cout << a[i].value() << '\n';
 	
-	cout << "\nPivot: " << a[pivot] << "\n\n";
+	cout << "\nPivot: " << a[pivot].value() << "\n\n";
 
-	partition(a, 0, 10, pivot);
+	partition_inplace(a, 0, 10, pivot);
 
 	cout << "After partition:\n";
 	for(int i=0; i<10; i++)
-		cout << a[i] << '\n';
+		cout << a[i].value() << '\n';
+	
+	cout << "\nNumber of operations: " << a[0].count() << '\n';
 
 
 	return 0; 

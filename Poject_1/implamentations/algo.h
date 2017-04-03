@@ -78,9 +78,44 @@ return array;
 }
 
 
-
+// Partitioning algorithm for use with Quicksort
+// NOTE: Partitions make use of a temporary array
 template<class T>
 void partition(T a[], int start, int stop, int pivot){
+	// Move Pivot to start
+	std::swap( a[pivot], a[start] );
+	T pivotVal = a[start];
+
+	// Allocate temporary array
+	T *temp = new T[ stop - start ];
+	int k = 0; //next available position
+
+	// Partitioning step
+	// NOTE: Position where pivot should be placed is tracked
+	int pivotPos = 0;
+	for (int i= start+1; i<stop; ++i){
+		temp[k] = a[i];
+		if ( temp[k] < pivotVal){
+			std::swap( temp[k], temp[pivotPos] );
+			++pivotPos;
+		}
+		++k;
+	}
+
+	// Putting pivot in correct position and copying to a
+	temp[k] = a[start];
+	std::swap( temp[k], temp[pivotPos] );
+	++k;
+
+	std::copy(temp, temp + k, a + start);
+	delete temp;
+}
+
+
+// In place partitioning algorithm for use with Quicksort
+// NOTE: Partitions in place, without the use of a temporary array
+template<class T>
+void partition_inplace(T a[], int start, int stop, int pivot){
 	// Create parameter indices
 	int p = 0;
 	int q = 0;
@@ -90,11 +125,11 @@ void partition(T a[], int start, int stop, int pivot){
 	std::swap( a[pivot], a[last] );
 	
 	// Get value of the pivot
-	int pivotVal = a[last];
+	T pivotVal = a[last];
 
-	// Partitioning
+	// Partitioning step
 	while (q < last){
-		if (a[q] <= pivotVal){
+		if (a[q] < pivotVal){
 			std::swap( a[p], a[q] );
 			++p;
 		}
