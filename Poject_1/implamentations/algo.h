@@ -84,7 +84,7 @@ return array;
 // Partitioning algorithm for use with Quicksort
 // NOTE: Partitions make use of a temporary array
 template<class T>
-void partition(T a[], int start, int stop, int pivot){
+void partition(T a[], const int &start, const int &stop, int &pivot){
 	// Move Pivot to start
 	std::swap( a[pivot], a[start] );
 	T pivotVal = a[start];
@@ -108,6 +108,7 @@ void partition(T a[], int start, int stop, int pivot){
 	// Putting pivot in correct position and copying to a
 	temp[k] = a[start];
 	std::swap( temp[k], temp[pivotPos] );
+	pivot = pivotPos;
 	++k;
 
 	std::copy(temp, temp + k, a + start);
@@ -118,7 +119,7 @@ void partition(T a[], int start, int stop, int pivot){
 // In place partitioning algorithm for use with Quicksort
 // NOTE: Partitions in place, without the use of a temporary array
 template<class T>
-void partition_inplace(T a[], int start, int stop, int pivot){
+void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
 	// Create parameter indices
 	int p = 0;
 	int q = 0;
