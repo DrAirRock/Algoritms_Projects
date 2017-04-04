@@ -97,9 +97,10 @@ return array;
 // NOTE: Partitions make use of a temporary array
 template<class T>
 void partition(T a[], const int &start, const int &stop, int &pivot){
-	// Move Pivot to start
-	std::swap( a[pivot], a[start] );
-	T pivotVal = a[start];
+	// Move Pivot to end
+	int last = stop-1;
+	std::swap( a[pivot], a[last] );
+	T pivotVal = a[last];
 
 	// Allocate temporary array
 	T *temp = new T[ stop - start ];
@@ -108,7 +109,7 @@ void partition(T a[], const int &start, const int &stop, int &pivot){
 	// Partitioning step
 	// NOTE: Position where pivot should be placed is tracked
 	int pivotPos = 0;
-	for (int i= start+1; i<stop; ++i){
+	for (int i= start; i<last; ++i){
 		temp[k] = a[i];
 		if ( temp[k] < pivotVal){
 			std::swap( temp[k], temp[pivotPos] );
@@ -118,9 +119,9 @@ void partition(T a[], const int &start, const int &stop, int &pivot){
 	}
 
 	// Putting pivot in correct position and copying to a
-	temp[k] = a[start];
+	temp[k] = a[last];
 	std::swap( temp[k], temp[pivotPos] );
-	pivot = pivotPos;
+	pivot = pivotPos + start; //Need to offset for actual array
 	++k;
 
 	std::copy(temp, temp + k, a + start);
@@ -133,8 +134,8 @@ void partition(T a[], const int &start, const int &stop, int &pivot){
 template<class T>
 void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
 	// Create parameter indices
-	int p = 0;
-	int q = 0;
+	int p = start;
+	int q = start;
 //	cout<<"before swap";
 	// Must swap pivot with the last element
 	int last = stop-1;

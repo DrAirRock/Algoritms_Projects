@@ -40,18 +40,20 @@ void quick_sort(T a[], int start, int stop){
 
 	//cout<<"in quicksort";
 	
-	if( stop - start >= 1){
+	if( stop - start > 1){
 		int pivot = start + rand() % (stop - start);			
-		cout<<"\npivot:" << a[pivot] << endl;	
+		//cout<<"\npivot:" << a[pivot] << endl;	
 	
 	 	//a_print(a,stop);
-		for (int i=start; i<stop; ++i)
-			cout << a[i] << ' ';
-		cout << '\n';
-		partition( a , start, stop, pivot);	 
-		for (int i=start; i<stop; ++i)
-			cout <<a[i] << ' ';
-		cout << '\n';
+		//for (int i=start; i<stop; ++i)
+			//cout << a[i] << ' ';
+		//cout << '\n';
+		
+		partition_inplace( a , start, stop, pivot);	 
+
+		//for (int i=start; i<stop; ++i)
+			//cout <<a[i] << ' ';
+
 		quick_sort( a , start, pivot);
 		quick_sort( a , pivot + 1, stop);
 	
