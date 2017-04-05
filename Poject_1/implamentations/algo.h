@@ -187,7 +187,7 @@ void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
 // A simple function to find the max element
 // NOTE: Does not make use of partition_inplace
 template<class T>
-int my_max_simple(T a, int start , int stop){ 
+int my_max_simple(T a[], int start , int stop){ 
 
 	int temp = 0; 
 	int i = 0;
@@ -207,7 +207,7 @@ int my_max_simple(T a, int start , int stop){
 // Very efficient, makes use of partition_inplace
 // NOTE: Make sure the rank passed is stop-1
 template<class T> 
-int my_max_element(T a, int start,  int stop, int rank){ 
+int my_max_element(T a[], int start,  int stop, int rank){ 
 	
 	// If there is at least 2 elements
 	while (stop - start > 1){ 

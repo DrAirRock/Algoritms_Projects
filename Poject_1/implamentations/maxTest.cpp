@@ -6,7 +6,7 @@ using std::cout;
 int main(){
 	int a[10];
 	
-	a[0] = 20;
+	a[0] = 20000;
 	a[1] = 3;
 	a[2] = 100;
 	a[3] = 6;
