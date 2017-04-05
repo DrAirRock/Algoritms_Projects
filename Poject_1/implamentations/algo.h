@@ -115,40 +115,11 @@ int * gen_intarray(int size, int range){
 return array;
 }
 
-template<class T>
-int my_max(T a, int start , int stop){ 
 
-	int temp = 0; 
-	int i = 0;
-	for (i = start; i < stop ; i++){ 
-		
-		if(!(a[i] < a[temp])){ 
-				
-			temp = i; 
-		}
-	}
-return temp;
-}
-
-
-template<class T> 
-int my_max_element(T a, int start,  int stop, int rank){ 
-	
-
-	if(stop - start >= 2){ 
-
-		int pivot = start + rand() % (stop - start);				
-		int k = partition_inplace_2(a , start, stop, pivot);  
-		if(rank = k - start + 1){return a[k].value();}
-		else if (rank <= k - start){ return my_max_element(a, start, k, rank);}
-		else {return my_max_element(a , k + 1, stop, rank - k + start -1 );}
-	}
-	else {return a[0].value();}
-}
 
 // Partitioning algorithm for use with Quicksort
 // NOTE: Partitions make use of a temporary array
-template<class T>
+template <class T>
 void partition(T a[], const int &start, const int &stop, int &pivot){
 	// Move Pivot to end
 	int last = stop-1;
@@ -182,21 +153,22 @@ void partition(T a[], const int &start, const int &stop, int &pivot){
 }
 
 
-// In place partitioning algorithm for use with Quicksort
+// In place partitioning algorithm for use with Quicksort and my_max_element
 // NOTE: Partitions in place, without the use of a temporary array
 template<class T>
 void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
+
 	// Create parameter indices
 	int p = start;
 	int q = start;
-//	cout<<"before swap";
+
 	// Must swap pivot with the last element
 	int last = stop-1;
 	std::swap( a[pivot], a[last] );
-//	cout<<"after swap";	
+
 	// Get value of the pivot
 	T pivotVal = a[last];
-//	cout << "after piviot\n"; 
+
 	// Partitioning step
 	while (q < last){
 		if (a[q] < pivotVal){
@@ -212,35 +184,65 @@ void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
 }
 
 
+// A simple function to find the max element
+// NOTE: Does not make use of partition_inplace
 template<class T>
-int partition_inplace_2(T a[], const int &start, const int &stop, int &pivot){
-	// Create parameter indices
-	int p = start;
-	int q = start;
-//	cout<<"before swap";
-	// Must swap pivot with the last element
-	int last = stop-1;
-	std::swap( a[pivot], a[last] );
-//	cout<<"after swap";	
-	// Get value of the pivot
-	T pivotVal = a[last];
-//	cout << "after piviot\n"; 
-	// Partitioning step
-	while (q < last){
-		if (a[q] < pivotVal){
-			std::swap( a[p], a[q] );
-			++p;
-		}
-		++q;
-	}
+int my_max_simple(T a, int start , int stop){ 
 
-	// put pivot between partitions
-	std::swap( a[p], a[last] );
-	pivot = p;
-	return pivot;
+	int temp = 0; 
+	int i = 0;
+	for (i = start; i < stop ; i++){ 
+		
+		if(!(a[i] < a[temp])){ 
+				
+			temp = i; 
+		}
+	}
+	return temp;
 }
 
-// SEE IMPLEMENTATION
+
+
+// Finds the max element in the range, [start, stop)
+// Very efficient, makes use of partition_inplace
+// NOTE: Make sure the rank passed is stop-1
+template<class T> 
+int my_max_element(T a, int start,  int stop, int rank){ 
+	
+	// If there is at least 2 elements
+	if(stop - start > 1){ 
+
+		// Set the pivot and run the partitioning algorithm
+		int pivot = start + rand() % (stop - start);				
+		partition_inplace(a , start, stop, pivot);  
+
+		// If the rank is the pivot, we are done!
+		if(rank == pivot)
+			return a[pivot];
+
+		// If the rank is less than the pivot, partition the left half
+		// NOTE: Done recursively
+		else if (rank < pivot)
+			return my_max_element(a, start, pivot, rank);
+		
+		// If the rank is greater than the pivot partition the right half
+		// NOTE: Done recursively
+		else 
+			return my_max_element(a , pivot + 1, stop, rank);
+	}
+	
+	// If there is one position left, it must be the rank
+	else if (start == rank)
+		return a[start];
+
+	// The rank is not attainable, or a bug
+	else
+		return -1;
+}
+
+// Merges two portions together in increasing order
+// For use with mergeSort
+// NOTE: The two portions should be already sorted
 template <class T>
 void merge(T a[], int start, int mid, int stop){
 	// First element in a
