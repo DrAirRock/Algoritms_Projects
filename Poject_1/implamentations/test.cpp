@@ -13,7 +13,7 @@ int main(){
 	a_print(p,size);
 */
 
-	Integer a[1];
+/*	Integer a[1];
 	a[0] = 17;
 	a[1] = 72;
 	a[2] = 13;
@@ -27,21 +27,31 @@ int main(){
 
 	int pivot = 2;
 
-	cout << "Before partition:\n";
+	cout << "before partition:\n";
 	for(int i=0; i<10; i++)
 		cout << a[i].value() << '\n';
 	
-	cout << "\nPivot: " << a[pivot].value() << "\n\n";
+	cout << "\npivot: " << a[pivot].value() << "\n\n";
 
 	partition(a, 0, 10, pivot);
 
-	cout << "After partition:\n";
+	cout << "after partition:\n";
 	for(int i=0; i<10; i++)
 		cout << a[i].value() << '\n';
-	cout << "\nPivot: " << pivot << '\n';
+	cout << "\npivot: " << pivot << '\n';
 	
-	cout << "\nNumber of operations: " << a[0].count() << '\n';
-
+	cout << "\nnumber of operations: " << a[0].count() << '\n';
+*/
+	Integer *p; 
+	p = gen_integerarray(SIZE,RANGE); 
+	a_print_integer(p, SIZE); 
+	Integer *q; 
+	q = gen_reverse_integer(p, SIZE); 	
+	a_print_integer(q,SIZE);
+	Integer *r; 
+	r =  gen_integerinorder(SIZE); 
+	a_print_integer(r,SIZE);
+	cout<<"wat";
 
 	return 0; 
 }

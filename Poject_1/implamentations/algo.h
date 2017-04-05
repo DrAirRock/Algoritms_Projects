@@ -6,7 +6,7 @@
 #include "Integer.h" 
 #include "algo.h"
 
-#define SIZE  10000
+#define SIZE   10000
 #define RANGE  500
 
 
@@ -22,7 +22,7 @@ void  a_print(const T array[], int size){
 	for(int i = 0; i < size  ; i++){
 	
 		if(array[i] != NULL){
-			
+
 			std::cout << array[i] << " ";
 
 	
@@ -48,14 +48,16 @@ void  a_print(const T array[],int start, int stop){
 }
 
 
-//for printing INTEGER arrays
+//for printing Integer arrays
 template <class T> 
 void a_print_integer(const T array[], int size){ 
 
 	for(int i = 0; i < size  ; i++){
-			
-		 std::cout << array[i].value()  << " ";
 
+		if(array[i].value() != NULL){
+
+			 std::cout << array[i].value()  << " ";
+		}
 	
 	}
 	std::cout << std::endl;
@@ -66,7 +68,7 @@ void a_print_integer(const T array[], int size){
 Integer * gen_integerarray(int size, int range){ 
 	
 	//Integer * array = new Integer[size]; 
-	 Integer * array = new Integer[size]; 
+	Integer * array = new Integer[size]; 
 	
 	for(int i = 0 ; i < size; i++){ 
 	
@@ -77,6 +79,34 @@ Integer * gen_integerarray(int size, int range){
 
 return array;
 }
+
+
+Integer *gen_reverse_integer(Integer *p, int size){ 
+
+	Integer * array = new Integer[size]; 
+	int x = 0;	
+	for(int i = size-1; i >= 0; i--){ 
+		
+		array[x] = p[i];
+		x++;
+	
+	} 	
+return array; 
+}
+
+Integer *gen_integerinorder(int size){ 
+
+	Integer * array = new Integer[size]; 
+
+	for(int i = 1 ; i <= size; i++){ 
+	
+		array[i] = i;
+
+	} 
+return array; 
+}
+
+
 
 
 int * gen_intarray(int size, int range){ 
@@ -92,6 +122,11 @@ int * gen_intarray(int size, int range){
 return array;
 }
 
+
+template<class T>
+int max (T a, int start , int end ){ 
+
+	for 
 
 // Partitioning algorithm for use with Quicksort
 // NOTE: Partitions make use of a temporary array

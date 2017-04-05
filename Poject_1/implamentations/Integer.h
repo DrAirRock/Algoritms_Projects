@@ -28,6 +28,8 @@ class Integer{
 		// Returns the count which is just the global Integer_count
 		int count() const { return Integer_count;}
 		
+		
+		void reset(){ Integer_count = 0; }
 		// Comparison operator <
 		// Returns true if value of Integer on the left
 		// is less than the value of the Integer on the

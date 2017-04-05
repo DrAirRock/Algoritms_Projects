@@ -41,6 +41,7 @@ void quick_sort(T a[], int start, int stop){
 	//cout<<"in quicksort";
 	
 	if( stop - start > 1){
+		
 		int pivot = start + rand() % (stop - start);			
 		//cout<<"\npivot:" << a[pivot] << endl;	
 	
@@ -49,7 +50,7 @@ void quick_sort(T a[], int start, int stop){
 			//cout << a[i] << ' ';
 		//cout << '\n';
 		
-		partition_inplace( a , start, stop, pivot);	 
+		 partition( a , start, stop, pivot);	 
 
 		//for (int i=start; i<stop; ++i)
 			//cout <<a[i] << ' ';
