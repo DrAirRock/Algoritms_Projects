@@ -56,7 +56,7 @@ void insertion_sort(const T a, int i, int j){
 	int p;	
 	k = i + 1;
 
-	for ( k ; k <= (j - 1); k++){
+	for (; k <= (j - 1); k++){
 		x = a[k]; 
 		p = k-1; 
 ;
@@ -75,7 +75,7 @@ void selection_sort(const T a, int start , int stop){
 
 	if((start - stop) >= 2){ 
 		
-		int k = *std::max_element(a , a + stop); 
+		int k = std::max_element(a , a + stop); 
 
 		std::swap(a[start] , a[stop]);
 

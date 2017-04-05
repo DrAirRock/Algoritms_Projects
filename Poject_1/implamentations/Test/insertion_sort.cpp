@@ -10,8 +10,8 @@ void quick_sort_inplace(const T a, int start, int stop){
 	//	a_print(a,stop);	
 		int pivot = start + rand() % (stop - start);			
 		partition_inplace( a , start, stop, pivot);	
-		quick_sort( a , start, pivot);
-		quick_sort( a , pivot + 1, stop);
+		quick_sort_inplace( a , start, pivot);
+		quick_sort_inplace( a , pivot + 1, stop);
 	}
 	return; 
 
@@ -25,7 +25,7 @@ void insertion_sort(const T a, int i, int j){
 	int k,x,p;	
 	k = i + 1;
 
-	for ( k ; k <= (j - 1); k++){
+	for (; k <= (j - 1); k++){
 		x = a[k]; 
 		p = k-1; 
 		while( p >= i && x < a[p] ){ 

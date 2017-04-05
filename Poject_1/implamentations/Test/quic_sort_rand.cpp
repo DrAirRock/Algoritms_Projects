@@ -3,9 +3,11 @@
 #include "algo.h"
 //#include <algorithm>
 #include <utility>
-using namespace std;
-//solutions 
 
+using std::cout;
+
+//solutions 
+/*
 template<class T> 
 void Swap_t(T a, T s , T  p){ 
 	T temp[1];
@@ -13,7 +15,7 @@ void Swap_t(T a, T s , T  p){
 	a[s] = a[p]; 
 	a[p] = temp[0];
 
-}
+}*/
 
 /*
 template<class T> 

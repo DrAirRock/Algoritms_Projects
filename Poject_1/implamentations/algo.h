@@ -12,8 +12,6 @@
 
 //I know ... for debugging
 using std::cout;
-using std::endl;
-using std::to_string;
 
 
 template <class T> 
@@ -21,14 +19,9 @@ void  a_print(const T array[], int size){
 
 	for(int i = 0; i < size  ; i++){
 	
-		if(array[i] != NULL){
-
-			std::cout << array[i] << " ";
-
-	
-		}
+		cout << array[i] << " ";
 	}
-	std::cout << std::endl;
+	cout << '\n';
 }
 
 //FORE DEBUGGING
@@ -123,10 +116,6 @@ return array;
 }
 
 
-template<class T>
-int max (T a, int start , int end ){ 
-
-	for 
 
 // Partitioning algorithm for use with Quicksort
 // NOTE: Partitions make use of a temporary array
