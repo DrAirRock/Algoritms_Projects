@@ -6,7 +6,7 @@
 #include "Integer.h" 
 #include "algo.h"
 
-#define SIZE   10000
+#define SIZE   100
 #define RANGE  500
 
 
@@ -187,12 +187,12 @@ void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
 // A simple function to find the max element
 // NOTE: Does not make use of partition_inplace
 template<class T>
-int my_max_simple(T a[], int start , int stop){ 
+int my_max(T a[], int start , int stop){ 
 
 	int temp = 0; 
 	int i = 0;
 	for (i = start; i < stop ; i++){ 
-		
+		//Less than is the only thing implamented 	
 		if(!(a[i] < a[temp])){ 
 				
 			temp = i; 

@@ -1,9 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include "algo.h"
+#include <chrono>
+#include <ctime> 
+
 
 template <class T>
 void quick_sort_inplace(const T a, int start, int stop){
+	
 
 
 	if( stop - start > 1){
@@ -12,6 +16,8 @@ void quick_sort_inplace(const T a, int start, int stop){
 		quick_sort_inplace( a , start, pivot);
 		quick_sort_inplace( a , pivot + 1, stop);
 	}
+	
+
 	return; 
 
 }
@@ -30,7 +36,7 @@ void quick_sort(t a[], int start, int stop){
 		
 	}
 	
-
+	return; 
 }
 
 template <class T>
@@ -59,7 +65,7 @@ void insertion_sort(const T a, int i, int j){
 	for (; k <= (j - 1); k++){
 		x = a[k]; 
 		p = k-1; 
-;
+
 		while( p >= i && x < a[p] ){ 
 			a[p+1] = a[p];	
 			--p;	
@@ -72,14 +78,8 @@ void insertion_sort(const T a, int i, int j){
 template<class T> 
 void selection_sort(const T a, int start , int stop){ 
 
-
 	if((stop - start) >= 2){ 
 	
-	//	cout << "hll";	
-//		int rank = stop; 
-
-//		int k = my_max_element(a , start, stop, rank); 
-		
 		int k = my_max(a , start, stop ); 
 		std::swap(a[k] , a[stop - 1]);
 
@@ -111,15 +111,34 @@ int main (){
 	Integer *p; 
 	Integer *q; 
 	Integer *r; 
-
+	/* insettion sort man */
 	cout<<"insertion sort\n"; 
+
 	p = gen_integerarray(SIZE,RANGE);		
+	
+	std::clock_t c_start = std::clock(); 
+	auto t_start = std::chrono::high_resolution_clock::now();
+	//INSERTION SORT ON RANDOM 
 	insertion_sort(p,0,SIZE);	
+
+	std::clock_t c_end = std::clock();	
+	auto t_end = std::chrono::high_resolution_clock::now(); 
+	std::cout<<std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
+
 	cout<<"opertarions; "<< p[0].count() << "\n";	
 	p[0].reset();
 	q = gen_reverse_integer(p, SIZE); 	
+
+	c_start = std::clock(); 
+	t_start = std::chrono::high_resolution_clock::now();
+	
 	insertion_sort(q,0,SIZE);	
 	cout<<"opertarions; "<< q[0].count() << "\n";
+
+	c_end = std::clock();	
+	t_end = std::chrono::high_resolution_clock::now(); 
+	std::cout<<std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
+	
 	q[0].reset();	
 	r =  gen_integerinorder(SIZE); 
 	insertion_sort(r,0,SIZE);	
@@ -128,6 +147,7 @@ int main (){
 	//	a_print_integer(p,SIZE);
 
 	cout<<"quick first piviot\n"; 
+
 	p = gen_integerarray(SIZE,RANGE);		
 	quick_sort_start(p,0,SIZE);	
 	cout<<"opertarions; "<< p[0].count() << "\n";
@@ -142,7 +162,7 @@ int main (){
 	r[0].reset();
 	//	a_print_integer(p,SIZE);
 
-	cout<<"quick\n";	
+	cout<<"quick sort\n";	
 	p = gen_integerarray(SIZE,RANGE);		
 	quick_sort(p,0,SIZE);	
 	cout<<"opertarions; "<< p[0].count() << "\n";
@@ -171,7 +191,7 @@ int main (){
 	cout<<"opertarions; "<< r[0].count() << "\n";
 	r[0].reset();	
 
-	cout<<"quick sort inplace\n";	
+	cout<<"merge sort\n";	
 	p = gen_integerarray(SIZE,RANGE);		
 	mergeSort(p,0,SIZE);	
 	cout<<"opertarions; "<< p[0].count() << "\n";
@@ -199,7 +219,7 @@ int main (){
 	selection_sort(r,0,SIZE);	
 	cout<<"opertarions; "<< r[0].count() << "\n";
 	r[0].reset(); 	
-	a_print_integer(p,SIZE);
+//	a_print_integer(p,SIZE);
 	//	a_print_integer(p,SIZE);
 
 	
