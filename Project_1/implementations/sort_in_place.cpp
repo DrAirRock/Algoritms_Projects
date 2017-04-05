@@ -30,20 +30,16 @@ void quick_sort(const T a, int start, int stop){
 int main (){
 
 
-/*	int a[7] = {60 , 12, 37, 42, 25, 38, 16};
+	int a[10] = {12 , 13, 14, 15, 16, 72, 73, 80, 100, 210};
 
-	a_print(a,7);	
-	quick_sort(a,0,7);
+	a_print(a,10);	
+
+	quick_sort(a,0,10);
 	
-	a_print(a,7);
-*/
+	a_print(a,10);
 
 
-	int *p ; 
-	p = gen_intarray(SIZE,RANGE);
-	quick_sort(p,0,SIZE);
-	a_print(p,SIZE);
-	return 0; 
+
 
 
 }

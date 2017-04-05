@@ -6,7 +6,7 @@
 #include "Integer.h" 
 #include "algo.h"
 
-#define SIZE   100
+#define SIZE   200000
 #define RANGE  500
 
 
@@ -206,6 +206,7 @@ int my_max(T a[], int start , int stop){
 // Finds the max element in the range, [start, stop)
 // Very efficient, makes use of partition_inplace
 // NOTE: Make sure the rank passed is stop-1
+// NOTE: unstable :(
 template<class T> 
 int my_max_element(T a[], int start,  int stop, int rank){ 
 	
