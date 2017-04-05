@@ -115,7 +115,36 @@ int * gen_intarray(int size, int range){
 return array;
 }
 
+template<class T>
+int my_max(T a, int start , int stop){ 
 
+	int temp = 0; 
+	int i = 0;
+	for (i = start; i < stop ; i++){ 
+		
+		if(!(a[i] < a[temp])){ 
+				
+			temp = i; 
+		}
+	}
+return temp;
+}
+
+
+template<class T> 
+int my_max_element(T a, int start,  int stop, int rank){ 
+	
+
+	if(stop - start >= 2){ 
+
+		int pivot = start + rand() % (stop - start);				
+		int k = partition_inplace_2(a , start, stop, pivot);  
+		if(rank = k - start + 1){return a[k].value();}
+		else if (rank <= k - start){ return my_max_element(a, start, k, rank);}
+		else {return my_max_element(a , k + 1, stop, rank - k + start -1 );}
+	}
+	else {return a[0].value();}
+}
 
 // Partitioning algorithm for use with Quicksort
 // NOTE: Partitions make use of a temporary array
@@ -181,7 +210,73 @@ void partition_inplace(T a[], const int &start, const int &stop, int &pivot){
 	std::swap( a[p], a[last] );
 	pivot = p;
 }
-	
+
+
+template<class T>
+int partition_inplace_2(T a[], const int &start, const int &stop, int &pivot){
+	// Create parameter indices
+	int p = start;
+	int q = start;
+//	cout<<"before swap";
+	// Must swap pivot with the last element
+	int last = stop-1;
+	std::swap( a[pivot], a[last] );
+//	cout<<"after swap";	
+	// Get value of the pivot
+	T pivotVal = a[last];
+//	cout << "after piviot\n"; 
+	// Partitioning step
+	while (q < last){
+		if (a[q] < pivotVal){
+			std::swap( a[p], a[q] );
+			++p;
+		}
+		++q;
+	}
+
+	// put pivot between partitions
+	std::swap( a[p], a[last] );
+	pivot = p;
+	return pivot;
+}
+
+// SEE IMPLEMENTATION
+template <class T>
+void merge(T a[], int start, int mid, int stop){
+	// First element in a
+	int p = start;
+	// Middle element in a
+	int q = mid;
+
+	// Create resulting array
+	T *result = new T[stop-start];
+	int k = 0; //next available position
+
+	// Merging step
+	// If a[p] < a[q] put a[p] first into result
+	// If a[p] > a[q] put a[q] first into result
+	while( p < mid && q < stop){
+		if (a[p] < a[q]){
+			result[k] = a[p];
+			++p;
+		}
+		else{ //a[p] > a[q]
+			result[k] = a[q];
+			++q;
+		}
+
+		++k;
+	}
+
+	// Now we must copy the remaining values into result
+	std::copy( a+p, a+mid, result+k);
+	std::copy( a+q, a+stop, result+k);
+
+	// Now copy result to a and delete result
+	std::copy( result, result+(stop-start), a+start );
+	delete[] result;
+}
+
 
 
 

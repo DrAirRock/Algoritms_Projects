@@ -73,17 +73,38 @@ template<class T>
 void selection_sort(const T a, int start , int stop){ 
 
 
-	if((start - stop) >= 2){ 
-		
-		int k = std::max_element(a , a + stop); 
+	if((stop - start) >= 2){ 
+	
+	//	cout << "hll";	
+//		int rank = stop; 
 
-		std::swap(a[start] , a[stop]);
+//		int k = my_max_element(a , start, stop, rank); 
+		
+		int k = my_max(a , start, stop ); 
+		std::swap(a[k] , a[stop - 1]);
 
 		selection_sort(a,start,stop-1);
 
 	}
 
 } 
+
+
+
+template <class T>
+void mergeSort(T a[], int start, int stop){
+
+	if (stop-start > 1){
+		// Get the middle of the array
+		int mid = (start + stop)/2;
+
+		// Recursively sort both halves of a
+		mergeSort(a, start, mid);
+		mergeSort(a, mid, stop);
+		merge(a, start, mid, stop);
+	}
+}
+
 
 int main (){
 	
@@ -149,7 +170,22 @@ int main (){
 	quick_sort_inplace(r,0,SIZE);	
 	cout<<"opertarions; "<< r[0].count() << "\n";
 	r[0].reset();	
-	
+
+	cout<<"quick sort inplace\n";	
+	p = gen_integerarray(SIZE,RANGE);		
+	mergeSort(p,0,SIZE);	
+	cout<<"opertarions; "<< p[0].count() << "\n";
+	p[0].reset();
+	q = gen_reverse_integer(p, SIZE); 	
+	mergeSort(q,0,SIZE);	
+	cout<<"opertarions; "<< q[0].count() << "\n";
+	q[0].reset();	
+	r =  gen_integerinorder(SIZE); 
+	mergeSort(r,0,SIZE);	
+	cout<<"opertarions; "<< r[0].count() << "\n";
+	r[0].reset();	
+//	a_print_integer(p,SIZE);
+
 	cout<<"selection sort\n"; 
 	p = gen_integerarray(SIZE,RANGE);		
 	selection_sort(p,0,SIZE);	
@@ -163,7 +199,12 @@ int main (){
 	selection_sort(r,0,SIZE);	
 	cout<<"opertarions; "<< r[0].count() << "\n";
 	r[0].reset(); 	
+	a_print_integer(p,SIZE);
 	//	a_print_integer(p,SIZE);
+
+	
+	
+	
 	return 0; 
 
 
