@@ -210,7 +210,7 @@ template<class T>
 int my_max_element(T a, int start,  int stop, int rank){ 
 	
 	// If there is at least 2 elements
-	if(stop - start > 1){ 
+	while (stop - start > 1){ 
 
 		// Set the pivot and run the partitioning algorithm
 		int pivot = start + rand() % (stop - start);				
@@ -221,18 +221,18 @@ int my_max_element(T a, int start,  int stop, int rank){
 			return a[pivot];
 
 		// If the rank is less than the pivot, partition the left half
-		// NOTE: Done recursively
+		// NOTE: Done by updating stop
 		else if (rank < pivot)
-			return my_max_element(a, start, pivot, rank);
+			stop = pivot;
 		
 		// If the rank is greater than the pivot partition the right half
-		// NOTE: Done recursively
+		// NOTE: Done by updating start
 		else 
-			return my_max_element(a , pivot + 1, stop, rank);
+			start = pivot+1;
 	}
 	
 	// If there is one position left, it must be the rank
-	else if (start == rank)
+	if (start == rank)
 		return a[start];
 
 	// The rank is not attainable, or a bug
