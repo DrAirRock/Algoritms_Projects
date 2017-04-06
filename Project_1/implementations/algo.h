@@ -11,13 +11,6 @@
 
 
 using std::cout;
-/*
-struct comp{ 
-
-	bool operator() (Integer a, Integer b) {return (a < b); }
-
-}comp_obj;
-*/
 
 
 template <class T> 
