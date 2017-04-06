@@ -435,7 +435,8 @@ int main (){
 	p = gen_integerarray(SIZE,RANGE);		
 
 	t_start = std::chrono::high_resolution_clock::now();
-	std::sort(p, p+SIZE,comp_obj);	
+	//std::sort(p, p+SIZE,comp_obj);	
+	std::sort(p, p+SIZE);
 	t_end = std::chrono::high_resolution_clock::now(); 
 
 	cout << "Random\n";
@@ -447,7 +448,8 @@ int main (){
 	q = gen_reverse_integer(p, SIZE); 	
 
 	t_start = std::chrono::high_resolution_clock::now();
-	std::sort(q, q+SIZE, comp_obj);	
+	//std::sort(q, q+SIZE, comp_obj);	
+	std::sort(q, q+SIZE);
 	t_end = std::chrono::high_resolution_clock::now(); 
 //	a_print_integer(q,SIZE);
 	cout << "Reverse Order\n";
@@ -460,7 +462,8 @@ int main (){
 	r =  gen_integerinorder(SIZE); 
 
 	t_start = std::chrono::high_resolution_clock::now();
-	std::sort(r, r+SIZE, comp_obj);	
+	//std::sort(r, r+SIZE, comp_obj);	
+	std::sort(r, r+SIZE);
 	t_end = std::chrono::high_resolution_clock::now(); 
 
 	cout << "Sorted\n";
