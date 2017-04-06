@@ -5,7 +5,7 @@
 
 // Global variable used for counting
 // the number of comparisons or copying performed
-int Integer_count = 0;
+unsigned int Integer_count = 0;
 
 class Integer{
 	private:

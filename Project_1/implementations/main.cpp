@@ -1,10 +1,18 @@
 #include <iostream>
 #include <cstdlib>
 #include "algo.h"
+#include <algorithm> 
 #include <chrono>
 #include <ctime> 
 
 using std::cout;
+
+//for stl algrithm 
+struct comp{ 
+
+	bool operator() (Integer a, Integer b) {return (a < b); }
+
+}comp_obj;
 
 
 template <class T>
@@ -419,6 +427,54 @@ int main (){
 	delete[] r;
 
 	
+
+	cout<<"\nSTL sort algrithm\n"; 
+	cout << "//////////////////////////////\n";
+
+	// Random
+	p = gen_integerarray(SIZE,RANGE);		
+
+	t_start = std::chrono::high_resolution_clock::now();
+	std::sort(p, p+SIZE,comp_obj);	
+	t_end = std::chrono::high_resolution_clock::now(); 
+
+	cout << "Random\n";
+	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
+	cout<<"Operations "<< p[0].count() << "\n\n";	
+	p[0].reset();
+
+	// Reverse
+	q = gen_reverse_integer(p, SIZE); 	
+
+	t_start = std::chrono::high_resolution_clock::now();
+	std::sort(q, q+SIZE, comp_obj);	
+	t_end = std::chrono::high_resolution_clock::now(); 
+//	a_print_integer(q,SIZE);
+	cout << "Reverse Order\n";
+	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
+	cout<<"Operations "<< q[0].count() << "\n\n";
+	q[0].reset();	
+	
+
+	// Sorted
+	r =  gen_integerinorder(SIZE); 
+
+	t_start = std::chrono::high_resolution_clock::now();
+	std::sort(r, r+SIZE, comp_obj);	
+	t_end = std::chrono::high_resolution_clock::now(); 
+
+	cout << "Sorted\n";
+	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
+	cout<<"Operations "<< r[0].count() << "\n\n";
+	r[0].reset(); 	
+//	a_print_integer(p,SIZE);
+	//	a_print_integer(p,SIZE);
+	
+	// Free up the memory
+	delete[] p;
+	delete[] q;
+	delete[] r;
+
 	return 0; 
 
 }

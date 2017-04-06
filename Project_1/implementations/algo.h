@@ -6,12 +6,18 @@
 #include "Integer.h" 
 #include "algo.h"
 
-#define SIZE   200000
+#define SIZE   10000
 #define RANGE  500
 
 
-//I know ... for debugging
 using std::cout;
+/*
+struct comp{ 
+
+	bool operator() (Integer a, Integer b) {return (a < b); }
+
+}comp_obj;
+*/
 
 
 template <class T> 
