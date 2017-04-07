@@ -146,9 +146,9 @@ int main (){
 	cout << "RANGE OF RANDOM NUBMERS IS:  " <<RANGE << "\n";
 	cout << "\nInsertion Sort\n";
 	cout << "//////////////////////////////\n";
-
-	// Random array
-	 p = gen_integerinorder(SIZE);		
+	
+	cout << "In order\n";
+	p = gen_integerinorder(SIZE);		
 	
 	auto t_start = std::chrono::high_resolution_clock::now();
 	insertion_sort(p,0,SIZE);	
@@ -171,7 +171,6 @@ int main (){
 	
 	q[0].reset();	
 
-	// Sorted Array
 	r = gen_integerarray(SIZE,RANGE); 
 
 	t_start = std::chrono::high_resolution_clock::now();
@@ -197,8 +196,8 @@ int main (){
 	cout<<"\nQuicksort First Pivot\n"; 
 	cout << "//////////////////////////////\n";
 
-	// Random array
-	  p = gen_integerinorder(SIZE);		
+	cout << "In order\n";
+	p = gen_integerinorder(SIZE);		
 
 	t_start = std::chrono::high_resolution_clock::now();
 	quick_sort_start(p,0,SIZE);	
@@ -215,18 +214,18 @@ int main (){
 	quick_sort_start(q,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	cout << "Reverse Order\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations: "<< q[0].count() << "\n\n";
 	q[0].reset();	
 
-	// Sorted array
 	r = gen_integerarray(SIZE,RANGE); 
 
 	t_start = std::chrono::high_resolution_clock::now();
 	quick_sort_start(r,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
-
+	cout << "Random\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations: "<< r[0].count() << '\n';
 	r[0].reset();
@@ -253,6 +252,7 @@ int main (){
 	quick_sort(p,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	cout << "In order\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations: "<< p[0].count() << "\n\n";
 
@@ -278,7 +278,7 @@ int main (){
 	quick_sort(r,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 	
-	cout << "Sorted\n";
+	cout << "Random\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations "<< r[0].count() << '\n';
 
@@ -299,7 +299,7 @@ int main (){
 	cout<<"\nQuicksort Inplace\n";	
 	cout << "//////////////////////////////\n";
 
-	// Random
+	cout << "In order\n";
 	  p = gen_integerinorder(SIZE);		
 
 	t_start = std::chrono::high_resolution_clock::now();
@@ -329,6 +329,7 @@ int main (){
 	quick_sort_inplace(r,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	cout << "Random\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations: "<< r[0].count() << '\n';
 	r[0].reset();	
@@ -353,6 +354,8 @@ int main (){
 	mergeSort(p,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	
+	cout << "In order\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations "<< p[0].count() << "\n\n";
 	p[0].reset();
@@ -364,6 +367,7 @@ int main (){
 	mergeSort(q,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	cout << "Reverse Order\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations "<< q[0].count() << "\n\n";
 	q[0].reset();	
@@ -375,6 +379,7 @@ int main (){
 	mergeSort(r,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	cout << "Random\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations "<< r[0].count() << '\n';
 	r[0].reset();	
@@ -400,7 +405,8 @@ int main (){
 	t_start = std::chrono::high_resolution_clock::now();
 	selection_sort(p,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
-
+	
+	cout << "In order\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations "<< p[0].count() << "\n\n";	
 	p[0].reset();
@@ -424,6 +430,7 @@ int main (){
 	selection_sort(r,0,SIZE);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	cout << "random\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations "<< r[0].count() << "\n\n";
 	r[0].reset(); 	
@@ -447,6 +454,7 @@ int main (){
 	std::sort(p, p+SIZE,comp_obj);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	cout << "in order\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations "<< p[0].count() << "\n\n";	
 	p[0].reset();
@@ -471,6 +479,7 @@ int main (){
 	std::sort(r, r+SIZE, comp_obj);	
 	t_end = std::chrono::high_resolution_clock::now(); 
 
+	cout << "In order\n";
 	cout << "Time taken: "<< std::chrono::duration<double, std::milli>(t_end - t_start).count() << "ms\n";
 	cout<<"Operations "<< r[0].count() << "\n\n";
 	r[0].reset(); 	
