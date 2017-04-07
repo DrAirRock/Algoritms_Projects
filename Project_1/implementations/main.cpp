@@ -85,12 +85,14 @@ void insertion_sort(const T a, int i, int j){
 	}
 }
 
+/*
 template<class T> 
 void selection_sort(const T a, int start , int stop){ 
 
 	if((stop - start) >= 2){ 
 	
 		int k = my_max(a , start, stop ); 
+		
 		std::swap(a[k] , a[stop - 1]);
 
 		selection_sort(a,start,stop-1);
@@ -98,8 +100,24 @@ void selection_sort(const T a, int start , int stop){
 	}
 
 } 
+*/
 
 
+template<class T> 
+void selection_sort(const T a, int start , int stop){ 
+
+	while ((stop - start) >= 2){ 
+	
+		int k = my_max(a , start, stop ); 
+		
+		std::swap(a[k] , a[stop - 1]);
+		
+		stop--;
+	//	selection_sort(a,start,stop-1);
+
+	}
+
+} 
 
 template <class T>
 void mergeSort(T a[], int start, int stop){
