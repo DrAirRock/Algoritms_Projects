@@ -56,8 +56,8 @@ inline Integer::Integer(const Integer &x){
 }
 
 
-//Implementation of operator <
-inline bool Integer::operator<(const Integer &x){
+//implementation of operator <
+inline bool integer::operator<(const integer &x){
 	
 	++Integer_count;
 	return (value_ < x.value());
