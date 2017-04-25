@@ -62,16 +62,7 @@ int main(){
 	mp.insert(24, 'x');
     cout<<"is tree empty: "<< mp.empty() << "\n";
 
-    cout<<"root: ";
-    mp.printNode(mp.get_root());
-    cout<<endl;
-    cout<<"min";
-    mp.printNode(mp.min(mp.get_root()));
-    cout<<endl;
-    cout<<"max:";
-    mp.printNode(mp.max(mp.get_root()));
-    cout<<endl;
-	mp.printTree();
+    mp.printTree();
 
 	return 0;
 

@@ -29,7 +29,10 @@ class Map{
         Node<K, V> *successor(Node<K, V> *node);
         Node<K, V> *erase_all(Node<K, V> *node);
         void erase_node(Node<K,V> *node);
-        //meow
+        Node<K, V>* get_root(){return root_; }
+        Node<K, V>* find_node(K key);
+        Node<K, V> *min(Node<K, V> * root);
+        Node<K ,V> *max(Node<K, V> * root);
 
 
     public:
@@ -38,14 +41,10 @@ class Map{
         void erase(){};
         int size(){ return size_;}
         bool empty(){ if(size_ == 0){ return true;} else return false;}
-        Node<K, V>* find(K key);
-        Node<K, V> *min(Node<K, V> * root);
-        Node<K ,V> *max(Node<K, V> * root);
 		void insert(const int &key, const int &value);
 		void printTree();
         void printNode(Node<K, V> * node);
         void clear();
-        Node<K, V>* get_root(){return root_; }
         //destructor
         ~Map() { clear(); }
 };
@@ -85,7 +84,7 @@ Node<K, V> * Map<K, V>::successor(Node<K, V> *node){
 	if (node->right_ != NULL)
 		return min(node->right_);
 
-	// Otherwise find the next right parent of node
+	// Otherwise finf_node the next right parent of node
 	else{
 		Node<K, V> *y = node->parent_;
 		while( y != NULL && node == y->right_){
@@ -175,7 +174,7 @@ void Map<K, V>::erase_node(Node<K, V> * node){
 template <class K, class V>
 void Map<K, V>::erase(K key){
 
-    Node<K, V> * z = find(key);
+    Node<K, V> * z = find_node(key);
 	if (z != NULL){
         size_--;
     	if( z -> left_ == NULL){
@@ -238,9 +237,9 @@ Node<K, V> * Map<K, V>::min(Node<K, V> *root){
     return node;
 }
 
-//find a key
+//finf_node a key
 template <class K, class V>
-Node<K, V> * Map<K, V>::find(K key){
+Node<K, V> * Map<K, V>::find_node(K key){
 
     Node<K, V> * node = root_;
     while( node != NULL && node->key_ != key){
