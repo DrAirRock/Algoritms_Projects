@@ -12,7 +12,7 @@ class Node{
     V value_;
     Node *right_, *left_, *parent_;
     Node() { right_ = NULL; left_ = NULL; parent_ = NULL;}
-
+    
 
 };
 

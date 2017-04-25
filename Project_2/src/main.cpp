@@ -1,11 +1,12 @@
-//Test Drivers 
- 
+//Test Drivers
+
 
 #include "Map.h"
 
 #include <iostream>
 
 using std::cout;
+using std::endl;
 
 
 int main(){
@@ -30,10 +31,10 @@ int main(){
 	mp.insert(12, 'l');
 	mp.insert(21, 'u');
 	mp.insert(16, 'p');
-	mp.insert(17, 'q');
+	//mp.insert(17, 'q');
 	mp.insert(9, 'i');
 	mp.insert(13, 'm');
-	mp.insert(18, 'r');
+	//mp.insert(18, 'r');
 	mp.insert(19, 's');
 	mp.insert(3, 'c');
 	mp.insert(24, 'x');
@@ -45,12 +46,31 @@ int main(){
 	mp.erase(16);
 	mp.erase(3);
 
+    mp.printTree();
+    //mp.clear();
+
 	mp.insert(15, 'o');
-
 	mp.erase(20);
-
 	mp.insert(9, 'i');
 
+
+    mp.clear();
+    cout<<"is tree empty: "<< mp.empty() << "\n";
+
+	mp.insert(19, 's');
+	mp.insert(3, 'c');
+	mp.insert(24, 'x');
+    cout<<"is tree empty: "<< mp.empty() << "\n";
+
+    cout<<"root: ";
+    mp.printNode(mp.get_root());
+    cout<<endl;
+    cout<<"min";
+    mp.printNode(mp.min(mp.get_root()));
+    cout<<endl;
+    cout<<"max:";
+    mp.printNode(mp.max(mp.get_root()));
+    cout<<endl;
 	mp.printTree();
 
 	return 0;

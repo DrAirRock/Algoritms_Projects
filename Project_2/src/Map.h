@@ -7,6 +7,17 @@
 
 using std::cout;
 
+/*template<class K, class V>
+class Iterator{
+
+    private:
+        Node<K, V> *node;
+
+
+    public:
+
+};*/
+
 template<class K , class V>
 class Map{
 
@@ -15,7 +26,9 @@ class Map{
         Node<K, V> *root_;
         int size_;
         void replace_subtree(Node<K, V> * &u, Node<K, V> * &v);
-		Node<K, V> *successor(Node<K, V> *node);
+        Node<K, V> *successor(Node<K, V> *node);
+        Node<K, V> *erase_all(Node<K, V> *node);
+        void erase_node(Node<K,V> *node);
         //meow
 
 
@@ -27,27 +40,43 @@ class Map{
         bool empty(){ if(size_ == 0){ return true;} else return false;}
         Node<K, V>* find(K key);
         Node<K, V> *min(Node<K, V> * root);
+        Node<K ,V> *max(Node<K, V> * root);
 		void insert(const int &key, const int &value);
 		void printTree();
+        void printNode(Node<K, V> * node);
+        void clear();
+        Node<K, V>* get_root(){return root_; }
 
 };
 
 
 template <class K, class V>
 void Map<K, V>::printTree(){
-	Node<K, V>* node = min(root_);
-	int numElement = 1;
-	while(node != NULL){
-		cout << "Element " << numElement << ":\n";
-		cout << "Key: " << node->key_ << '\n';
-		cout << "Value: " << node->value_ << '\n';
-
-		node = successor(node);
-		++numElement;
-	}
+    cout<<"Printing Tree...\n";
+    if(root_ != NULL){
+    	Node<K, V>* node = min(root_);
+    	int numElement = 1;
+    	while(node != NULL){
+    		cout << "Element " << numElement << ":\n";
+    		cout << "Key: " << node->key_ << '\n';
+    		cout << "Value: " << node->value_ << '\n';
+            cout << "Size: " << size_ <<"\n\n";
+    		node = successor(node);
+    		++numElement;
+    	}
+    }
 }
 
+template <class K, class V>
+inline void Map<K, V>::printNode(Node<K, V> * node){
+        if(root_ != NULL){
+    	//	cout << "Element " << numElement << ":\n";
+    		cout << "Key: " << node->key_ << '\n';
+    		cout << "Value: " << node->value_ << '\n';
+            cout << "Size: " << size_ <<"\n\n";
+        }
 
+}
 
 template <class K, class V>
 Node<K, V> * Map<K, V>::successor(Node<K, V> *node){
@@ -108,17 +137,45 @@ void Map<K, V>::insert(const int &key, const int &value){
 			}
 		}
 		// Set parent to q and we are done!
+        size_++;
 		z->parent_ = q;
 	}
 
 }
 
+template<class K, class V>
+void Map<K, V>::clear(){
+
+    erase_all(root_);
+    size_ = 0;
+    root_ = NULL;
+}
+
+template<class K, class V>
+Node<K, V>* Map<K,V>::erase_all(Node<K,V> * node){
+    //post order tree traversal
+    if( node != NULL){
+    erase_all(node->left_);
+    erase_all(node->right_);
+    erase_node(node);
+    }
+}
+
+template<class K, class V>
+void Map<K, V>::erase_node(Node<K, V> * node){
+    node->parent_ = NULL;
+    node->right_ = NULL;
+    node->left_ = NULL;
+    delete node->parent_, node->right_ , node->left_;
+    //size_--;
+}
 
 template <class K, class V>
 void Map<K, V>::erase(K key){
 
     Node<K, V> * z = find(key);
 	if (z != NULL){
+        size_--;
     	if( z -> left_ == NULL){
         	replace_subtree(z, z-> right_);
     	}else if(z -> right_ == NULL){
@@ -160,6 +217,14 @@ void Map<K, V>::replace_subtree(Node<K, V> * &u, Node<K, V> * &v){
 }
 
 
+template<class K, class V>
+Node<K, V> * Map<K,V>::max(Node<K, V> *root){
+    Node<K , V> * node = root;
+    while( node->right_ !=NULL){
+        node = node->right_;
+    }
+    return node;
+}
 
 //Returns the min element
 template <class K, class V>
@@ -187,6 +252,8 @@ Node<K, V> * Map<K, V>::find(K key){
     }
     return node;
 }
+
+
 
 
 #endif
