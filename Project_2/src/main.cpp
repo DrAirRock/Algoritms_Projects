@@ -31,24 +31,24 @@ int main(){
 	mp.insert(12, 'l');
 	mp.insert(21, 'u');
 	mp.insert(16, 'p');
-	//mp.insert(17, 'q');
+	mp.insert(17, 'q');
 	mp.insert(9, 'i');
 	mp.insert(13, 'm');
-	//mp.insert(18, 'r');
+	mp.insert(18, 'r');
 	mp.insert(19, 's');
 	mp.insert(3, 'c');
 	mp.insert(24, 'x');
-
+/*
 	mp.erase(24);
 	mp.erase(15);
 	mp.erase(22);
 	mp.erase(9);
 	mp.erase(16);
 	mp.erase(3);
-
-    mp.printTree();
+*/
+    //mp.printTree();
     //mp.clear();
-
+/*
 	mp.insert(15, 'o');
 	mp.erase(20);
 	mp.insert(9, 'i');
@@ -56,15 +56,29 @@ int main(){
 
     mp.clear();
     cout<<"is tree empty: "<< mp.empty() << "\n";
-
+	//mp.printTree();
 	mp.insert(19, 's');
 	mp.insert(3, 'c');
 	mp.insert(24, 'x');
     cout<<"is tree empty: "<< mp.empty() << "\n";
+*/
+    //mp.printTree();
 
-    mp.printTree();
+	Iterator<int, char> itr = mp.begin();
+	Iterator<int, char> endItr = mp.end();
+
+	while (1){
+		if (itr == endItr)
+			break;
+
+		auto p = *itr;
+		cout << p->first << ' ' << p->second << '\n';
+		++itr;
+	}
+
 
 	return 0;
 
 
 }
+
