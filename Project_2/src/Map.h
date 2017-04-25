@@ -41,6 +41,7 @@ inline void erase_node(Node *node){
 
 
 void erase(K key){
+
     Node * z = find(key);
     if( z -> left_ == NULL){
         replace_subtree(z, z-> right_);
@@ -85,6 +86,7 @@ Node *min(){
         while(node->left_ != NULL){
             node = node->left;
         }
+    return node;
 }
 
 //find a key
