@@ -1,5 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
+
+#include <cstdlib>
 //implametation of tree class
 
 template<class K, class V>
