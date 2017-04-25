@@ -47,7 +47,7 @@ class Map{
         void clear();
         Node<K, V>* get_root(){return root_; }
         //destructor
-        ~Map() { clear(); } 
+        ~Map() { clear(); }
 };
 
 
@@ -149,6 +149,7 @@ void Map<K, V>::clear(){
 
     erase_all(root_);
     size_ = 0;
+    delete root_;
     root_ = NULL;
 }
 
