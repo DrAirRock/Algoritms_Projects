@@ -46,7 +46,8 @@ class Map{
         void printNode(Node<K, V> * node);
         void clear();
         Node<K, V>* get_root(){return root_; }
-
+        //destructor
+        ~Map() { clear(); } 
 };
 
 
