@@ -7,77 +7,81 @@
 
 using std::cout;
 using std::endl;
+using std::ostream;
+
+class Integer{
+	private:
+		int value_;
+	
+	public:
+		Integer(){value_ = 0;}
+		Integer(const int &x){value_ = x;}
+		Integer(const Integer &x){value_ = x.value_;}
+
+		bool operator==(const Integer &x){return value_ == x.value_;}
+		bool operator<(const Integer &x){return value_ < x.value_;}
+		void operator=(const Integer &x){value_ = x.value_;}
+		void operator=(const int &x){value_ = x;}
+
+		friend ostream& operator<<(ostream& os, const Integer &x);
+};
+
+ostream &operator<<(ostream &out, const Integer &x){
+	out << x.value_;
+	return out;
+}
+
+
+template <class K, class V>
+void printItr(Map<K, V> &mp){
+
+	auto endItr = mp.end();
+	for (auto itr = mp.begin(); itr != endItr; ++itr){
+		auto p = *itr;
+		cout << p->first << ' ' << p->second << '\n';
+	}
+	cout << "Size: " << mp.size() << "\n\n";
+}
 
 
 int main(){
-	Map<int, char> mp;
+	Map<Integer, char> mp;
 
-	mp.insert(15, 'o');
-	mp.insert(20, 't');
-	mp.insert(1, 'a');
-	mp.insert(2, 'b');
-	mp.insert(22, 'v');
-	mp.insert(7, 'g');
-	mp.insert(14, 'n');
-	mp.insert(25, 'y');
-	mp.insert(4, 'd');
-	mp.insert(26, 'z');
-	mp.insert(5, 'e');
-	mp.insert(10, 'j');
-	mp.insert(23, 'w');
-	mp.insert(8, 'h');
-	mp.insert(6, 'f');
-	mp.insert(11, 'k');
-	mp.insert(12, 'l');
-	mp.insert(21, 'u');
-	mp.insert(16, 'p');
-	mp.insert(17, 'q');
-	mp.insert(9, 'i');
-	mp.insert(13, 'm');
-	mp.insert(18, 'r');
-	mp.insert(19, 's');
-	mp.insert(3, 'c');
-	mp.insert(24, 'x');
+	Integer i7(7);
 
-    cout<< "test of index :"  << mp[19] << "\n";
-/*
-	mp.erase24);
-	mp.erase(15);
-	mp.erase(22);
-	mp.erase(9);
-	mp.erase(16);
-	mp.erase(3);
-*/
-    //mp.printTree();
-    //mp.clear();
-/*
-	mp.insert(15, 'o');
-	mp.erase(20);
-	mp.insert(9, 'i');
+	mp[Integer(3)] = 'c';
+	mp[Integer(5)] = 'e';
+	mp[Integer(6)] = 'f';
+	mp[Integer(2)] = 'b';
+	mp[i7] = 'h';
+	mp[Integer(4)] = 'd';
+	mp[Integer(1)] = 'a';
 
+	mp[i7] = 'g';
 
-    mp.clear();
-    cout<<"is tree empty: "<< mp.empty() << "\n";
 	//mp.printTree();
-	mp.insert(19, 's');
-	mp.insert(3, 'c');
-	mp.insert(24, 'x');
-    cout<<"is tree empty: "<< mp.empty() << "\n";
-*/
-    //mp.printTree();
+	mp.clear();
+	Map<Integer, char> mp2(mp);	
 
-	Iterator<int, char> itr = mp.begin();
-    mp.erase(itr);
-    Iterator<int, char> endItr = mp.end();
 
-	while (1){
-		if (itr == endItr)
-			break;
+	printItr(mp2);
 
-		auto p = *itr;
-		cout << p->first << ' ' << p->second << '\n';
-		++itr;
-	}
+	mp2.erase(3);
+
+	printItr(mp2);
+
+	auto itr = mp2.find(Integer(4));
+	mp2.erase(itr);
+
+	printItr(mp2);
+
+	itr = mp2.end();
+	mp2.erase(itr);
+
+	printItr(mp2);
+
+	cout << mp2.empty() << '\n';
+
 
 
 	return 0;

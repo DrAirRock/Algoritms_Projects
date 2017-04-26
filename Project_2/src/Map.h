@@ -188,55 +188,75 @@ class Map{
         Node<K, V> *min(Node<K, V> * root);
         Node<K, V>* find_node(K key);
         Node<K,V> * copy_node(Node<K,V> node);
+		void insert(const K &key, const V &value);
+		Node<K, V> * insert(const K &key);
+		void deepCopy(Node<K, V> * &node);
 
 
     public:
         Map() { root_ = NULL; size_ = 0;}
-        Map ( const Map * other ){
 
-            root_ = other.root_.deepCopy();
-            deepCopy(root_);
-            size_ = other.size_
+		Map<K, V>(const Map<K, V> &otherMp);
 
-        }
-        Map<K,V> deepCopy(Node<K, V> * node){
-
-            Node<K,V> node = root_;
-            if( node != NULL){
-            copy_node(node);
-            copy_node(node->left_);
-            copy_node(node->right_);
-            }
-
-        }
-
-        //fine for shallow copy not deep copy
-		// Begin Iterator is the node with the smallest key
-        void erase(Iterator<K, V> *it);
-		Iterator<K, V> begin(){return Iterator<K, V>( min(root_) );}
+		// Begin Iterator is the node with the smallest key or NULL if empty
+		Iterator<K, V> begin(){
+			if (root_ != NULL)
+				return Iterator<K, V>( min(root_) );
+			else
+				return Iterator<K, V>();
+		}
 		// End Iterator is an Iterator with the node pointing to NULL
 		// NOTE: This is done by the default constructor
 		Iterator<K, V> end(){return Iterator<K, V>();}
         void erase(K key);
-        void erase();
         void erase(Iterator<K, V> it);
         int  size(){ return size_;}
         bool empty(){ if(size_ == 0){ return true;} else return false;}
-		void insert(const int &key, const int &value);
 		void printTree();
         void printNode(Node<K, V> * node);
         void clear();
-        Iterator<K, V> *find(K key);
-        V operator[](K index);
+        Iterator<K, V> find(K key);
+        V& operator[](K index);
     //    void erase(K key){
         //destructor
         ~Map() { clear(); }
 };
 
+
+// Copy constructor
+// NOTE: Performs a deep copy
+template <class K, class V>
+Map<K, V>::Map(const Map<K, V> &otherMp){
+
+	root_ = NULL;
+	size_ = 0;
+
+	Node<K, V> * node = otherMp.root_;
+	deepCopy(node);
+}
+
+
+// Helper function, peforms a deep copy to the given node
+// NOTE: Done recursively
+template <class K, class V>
+void Map<K, V>::deepCopy(Node<K, V> * &node){
+	// While the node is not null, insert it first then its children
+	if (node != NULL){
+		insert(node->key_, node->value_);
+		deepCopy(node->left_);
+		deepCopy(node->right_);
+	}
+}
+
+
 //indexing operator
 template <class K, class V>
-V Map<K,V>::operator[](K index){
+V& Map<K,V>::operator[](K index){
     Node<K,V> * node = find_node(index);
+
+	if (node == NULL)
+		node = insert(index);
+
     return node->value_;
 }
 
@@ -296,8 +316,9 @@ Node<K, V> * Map<K, V>::successor(Node<K, V> *node){
 
 // Inserts a node into the Binary Tree based on the given key and value
 // NOTE: Nodes are dynamically allocated
+
 template <class K, class V>
-void Map<K, V>::insert(const int &key, const int &value){
+void Map<K, V>::insert(const K &key, const V &value){
 	// Allocate a new node and set accordingly
 	Node<K, V> *z = new Node<K, V>;
 	z->key_ = key;
@@ -342,6 +363,54 @@ void Map<K, V>::insert(const int &key, const int &value){
 
 }
 
+
+// Same as above except no value is given
+template <class K, class V>
+Node<K, V> *  Map<K, V>::insert(const K &key){
+	// Allocate a new node and set accordingly
+	Node<K, V> *z = new Node<K, V>;
+	z->key_ = key;
+
+    ++size_;
+
+	// If no root, make z the root
+	if (root_ == NULL)
+		root_ = z;
+
+	// The fun case!
+	// If you need to go left, go left
+	// If right go right
+	// Keep going until you hit NULL
+	else{
+		Node<K, V> *q = root_;
+		bool done = false;
+		while(!done){
+			// If go left
+			if (z->key_ < q->key_){
+				if (q->left_ == NULL){
+					q->left_ = z;
+					done = true;
+				}
+				else
+					q = q->left_;
+			}
+			// Else go right
+			else{
+				if (q->right_ == NULL){
+					q->right_ = z;
+					done = true;
+				}
+				else
+					q = q->right_;
+			}
+		}
+		// Set parent to q and we are done!
+		z->parent_ = q;
+	}
+
+	return z;
+
+}
 
 // Deallocates every node in the tree efficiently
 template<class K, class V>
@@ -431,6 +500,9 @@ void Map<K, V>::erase(Iterator<K, V> it){
 		z = NULL;
 	}
 }
+
+
+
 // Replaces one subtree with another
 // Used with erase() methods
 template <class K, class V>
@@ -481,33 +553,38 @@ template <class K, class V>
 Node<K, V> * Map<K, V>::find_node(K key){
 
     Node<K, V> * node = root_;
-    while( node != NULL && node->key_ != key){
+    while( node != NULL){
         if(key < node->key_){
             node = node->left_;
         }
-        else{
+        else if (node->key_ < key){
             node = node->right_;
         }
-
+		else
+			break;
     }
     return node;
 }
 
 
+// Returns an iterator pointing to the node with the given key
 template <class K, class V>
-Iterator<K, V> * Map<K, V>::find(K key){
+Iterator<K, V> Map<K, V>::find(K key){
 
     Node<K, V> * node = root_;
-    while( node != NULL && node->key_ != key){
+    while( node != NULL ){
+		// Key is less than node's
         if(key < node->key_){
             node = node->left_;
         }
-        else{
+		// Key is greater than node's
+        else if (node->key_ < key){
             node = node->right_;
         }
-
+		else // Keys are equal
+			break;
     }
-    return * Iterator<K,V>(node);
+    return Iterator<K,V>(node);
 }
 
 //////////////////// END MAP IMPLEMENTATION ////////////////////
