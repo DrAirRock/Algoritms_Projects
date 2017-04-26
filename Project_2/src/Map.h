@@ -187,11 +187,30 @@ class Map{
         Node<K ,V> *max(Node<K, V> * root);
         Node<K, V> *min(Node<K, V> * root);
         Node<K, V>* find_node(K key);
+        Node<K,V> * copy_node(Node<K,V> node);
 
 
     public:
         Map() { root_ = NULL; size_ = 0;}
-        Map( const Map * other ); //fine for shallow copy not deep copy
+        Map ( const Map * other ){
+
+            root_ = other.root_.deepCopy();
+            deepCopy(root_);
+            size_ = other.size_
+
+        }
+        Map<K,V> deepCopy(Node<K, V> * node){
+
+            Node<K,V> node = root_;
+            if( node != NULL){
+            copy_node(node);
+            copy_node(node->left_);
+            copy_node(node->right_);
+            }
+
+        }
+
+        //fine for shallow copy not deep copy
 		// Begin Iterator is the node with the smallest key
         void erase(Iterator<K, V> *it);
 		Iterator<K, V> begin(){return Iterator<K, V>( min(root_) );}
@@ -201,7 +220,7 @@ class Map{
         void erase(K key);
         void erase();
         void erase(Iterator<K, V> it);
-        int  xxsize(){ return size_;}
+        int  size(){ return size_;}
         bool empty(){ if(size_ == 0){ return true;} else return false;}
 		void insert(const int &key, const int &value);
 		void printTree();
@@ -347,6 +366,7 @@ Node<K, V>* Map<K,V>::erase_all(Node<K,V> * &node){
 // NOTE: Node is assumed to already have been removed from the tree
 template<class K, class V>
 void Map<K, V>::erase_node(Node<K, V> * &node){
+
     node->parent_ = NULL;
     node->right_ = NULL;
     node->left_ = NULL;
