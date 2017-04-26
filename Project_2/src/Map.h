@@ -36,10 +36,8 @@ class Node{
     V value_;
     Node *right_, *left_, *parent_;
     Node() { right_ = NULL; left_ = NULL; parent_ = NULL;}
-    
 
 };
-
 
 //////////////////// END NODE IMPLEMENTATION ////////////////////
 
@@ -68,8 +66,7 @@ class Iterator{
 		Node<K, V> * node;
 		std::pair<K, V>  pair;
 
-	public:	
-
+	public:
 		const std::pair<K, V> *operator*();
 		void operator++();
 		void operator++(int);
@@ -78,10 +75,10 @@ class Iterator{
 };
 
 
-// Dereferences the iterator, returns a constant pointer to the std::pair corresponding 
+// Dereferences the iterator, returns a constant pointer to the std::pair corresponding
 // to the key and value stored in the node
 // NOTE: May return NULL
-// 
+//
 // If node is NULL return NULL
 // Else return pointer to std::pair object
 template<class K, class V>
@@ -90,7 +87,7 @@ inline const std::pair<K, V>* Iterator<K, V>::operator*(){
 	// pointer to it
 	if (node != NULL){
 		pair = std::make_pair(node->key_, node->value_);
-		
+
 		const std::pair<K, V> *p = &pair;
 
 		return p;
@@ -142,7 +139,7 @@ template<class K, class V>
 void Iterator<K,V>::operator++(int){
 	// This is an exact match of successor() except
 	// instead of returning, node is updated
-	
+
 	// If node has right child, get the min
 	if (node->right_ != NULL){
 		node = node->right;
@@ -194,26 +191,35 @@ class Map{
 
     public:
         Map() { root_ = NULL; size_ = 0;}
-
+        Map( const Map * other ); //fine for shallow copy not deep copy
 		// Begin Iterator is the node with the smallest key
+        void erase(Iterator<K, V> *it);
 		Iterator<K, V> begin(){return Iterator<K, V>( min(root_) );}
-		
 		// End Iterator is an Iterator with the node pointing to NULL
 		// NOTE: This is done by the default constructor
 		Iterator<K, V> end(){return Iterator<K, V>();}
-
         void erase(K key);
-        void erase(){};
-        int size(){ return size_;}
+        void erase();
+        void erase(Iterator<K, V> it);
+        int  xxsize(){ return size_;}
         bool empty(){ if(size_ == 0){ return true;} else return false;}
 		void insert(const int &key, const int &value);
 		void printTree();
         void printNode(Node<K, V> * node);
         void clear();
+        Iterator<K, V> *find(K key);
+        V operator[](K index);
+    //    void erase(K key){
         //destructor
         ~Map() { clear(); }
 };
 
+//indexing operator
+template <class K, class V>
+V Map<K,V>::operator[](K index){
+    Node<K,V> * node = find_node(index);
+    return node->value_;
+}
 
 // Debugging method
 // NOTE: Should be made private when not in use
@@ -377,6 +383,34 @@ void Map<K, V>::erase(K key){
 	}
 }
 
+// Removes the node with the given key and deallocates the node
+template <class K, class V>
+void Map<K, V>::erase(Iterator<K, V> it){
+
+    Node<K, V> * z = it.getNode();
+
+	if (z != NULL){
+        size_--;
+    	if( z -> left_ == NULL){
+        	replace_subtree(z, z-> right_);
+    	}else if(z -> right_ == NULL){
+        	replace_subtree(z, z->left_);
+    	}else{
+        	Node<K, V> * y = min(z->right_);
+        	if( y != z->right_){
+				replace_subtree(y, y->right_);
+            	y->right_ = z->right_;
+            	y->right_->parent_ = y;
+        	}
+        	replace_subtree(z , y);
+        	y->left_ = z->left_;
+        	y->left_->parent_ = y;
+    	}
+    	z->left_  = z->right_  = NULL;
+		delete z;
+		z = NULL;
+	}
+}
 // Replaces one subtree with another
 // Used with erase() methods
 template <class K, class V>
@@ -439,6 +473,22 @@ Node<K, V> * Map<K, V>::find_node(K key){
     return node;
 }
 
+
+template <class K, class V>
+Iterator<K, V> * Map<K, V>::find(K key){
+
+    Node<K, V> * node = root_;
+    while( node != NULL && node->key_ != key){
+        if(key < node->key_){
+            node = node->left_;
+        }
+        else{
+            node = node->right_;
+        }
+
+    }
+    return * Iterator<K,V>(node);
+}
 
 //////////////////// END MAP IMPLEMENTATION ////////////////////
 

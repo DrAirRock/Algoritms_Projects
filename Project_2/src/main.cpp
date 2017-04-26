@@ -38,8 +38,10 @@ int main(){
 	mp.insert(19, 's');
 	mp.insert(3, 'c');
 	mp.insert(24, 'x');
+
+    cout<< "test of index :"  << mp[19] << "\n";
 /*
-	mp.erase(24);
+	mp.erase24);
 	mp.erase(15);
 	mp.erase(22);
 	mp.erase(9);
@@ -65,7 +67,8 @@ int main(){
     //mp.printTree();
 
 	Iterator<int, char> itr = mp.begin();
-	Iterator<int, char> endItr = mp.end();
+    mp.erase(itr);
+    Iterator<int, char> endItr = mp.end();
 
 	while (1){
 		if (itr == endItr)
@@ -81,4 +84,3 @@ int main(){
 
 
 }
-
