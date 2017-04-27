@@ -191,6 +191,8 @@ class Map{
 		void insert(const K &key, const V &value);
 		Node<K, V> * insert(const K &key);
 		void deepCopy(Node<K, V> * &node);
+		void printTree();
+        void printNode(Node<K, V> * node);
 
 
     public:
@@ -208,14 +210,14 @@ class Map{
 		// End Iterator is an Iterator with the node pointing to NULL
 		// NOTE: This is done by the default constructor
 		Iterator<K, V> end(){return Iterator<K, V>();}
-        void erase(K key);
-        void erase(Iterator<K, V> it);
+
+        bool erase(K key);
+        Iterator<K, V> erase(Iterator<K, V> it);
         int  size(){ return size_;}
         bool empty(){ if(size_ == 0){ return true;} else return false;}
-		void printTree();
-        void printNode(Node<K, V> * node);
         void clear();
         Iterator<K, V> find(K key);
+		void swap(Map<K, V> &otherMp);
         V& operator[](K index);
     //    void erase(K key){
         //destructor
@@ -246,6 +248,25 @@ void Map<K, V>::deepCopy(Node<K, V> * &node){
 		deepCopy(node->left_);
 		deepCopy(node->right_);
 	}
+}
+
+
+
+// Swaps the contents of our current map with the given map
+template<class K, class V>
+void Map<K, V>::swap(Map<K, V> &otherMp){
+
+	// Put info in temp variables
+	Node<K, V> * tempRoot = root_;
+	int tempSize = size_;
+
+	// Make these the current map's variables
+	root_ = otherMp.root_;
+	size_ = otherMp.size_;
+
+	// Update otherMp
+	otherMp.size_ = tempSize;
+	otherMp.root_ = tempRoot;
 }
 
 
@@ -446,7 +467,7 @@ void Map<K, V>::erase_node(Node<K, V> * &node){
 
 // Removes the node with the given key and deallocates the node
 template <class K, class V>
-void Map<K, V>::erase(K key){
+bool Map<K, V>::erase(K key){
 
     Node<K, V> * z = find_node(key);
 	if (z != NULL){
@@ -469,17 +490,23 @@ void Map<K, V>::erase(K key){
     	z->left_  = z->right_  = NULL;
 		delete z;
 		z = NULL;
+		return true;
 	}
+
+	else
+		return false;
 }
 
 // Removes the node with the given key and deallocates the node
 template <class K, class V>
-void Map<K, V>::erase(Iterator<K, V> it){
+Iterator<K, V> Map<K, V>::erase(Iterator<K, V> it){
 
     Node<K, V> * z = it.getNode();
 
 	if (z != NULL){
         size_--;
+		Iterator<K, V> returnItr(successor(z));
+
     	if( z -> left_ == NULL){
         	replace_subtree(z, z-> right_);
     	}else if(z -> right_ == NULL){
@@ -498,7 +525,11 @@ void Map<K, V>::erase(Iterator<K, V> it){
     	z->left_  = z->right_  = NULL;
 		delete z;
 		z = NULL;
+		return returnItr;
 	}
+
+	else
+		return Iterator<K, V>();
 }
 
 

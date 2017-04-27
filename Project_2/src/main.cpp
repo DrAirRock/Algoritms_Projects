@@ -18,7 +18,6 @@ class Integer{
 		Integer(const int &x){value_ = x;}
 		Integer(const Integer &x){value_ = x.value_;}
 
-		bool operator==(const Integer &x){return value_ == x.value_;}
 		bool operator<(const Integer &x){return value_ < x.value_;}
 		void operator=(const Integer &x){value_ = x.value_;}
 		void operator=(const int &x){value_ = x;}
@@ -60,18 +59,32 @@ int main(){
 	mp[i7] = 'g';
 
 	//mp.printTree();
-	mp.clear();
 	Map<Integer, char> mp2(mp);	
+	mp.clear();
+
+	mp[24] = 'R';
 
 
+
+	cout << "BEFORE:\n";
+	printItr(mp);
 	printItr(mp2);
 
-	mp2.erase(3);
+	mp2.swap(mp);
+
+	cout << "AFTER:\n";
+	printItr(mp);
+	printItr(mp2);
+/*
+	cout << mp2.erase(3) << '\n';
 
 	printItr(mp2);
 
 	auto itr = mp2.find(Integer(4));
-	mp2.erase(itr);
+	itr = mp2.erase(itr);
+
+	auto p = *itr;
+	cout << p->first << ' ' << p->second << "\n\n";
 
 	printItr(mp2);
 
@@ -82,7 +95,7 @@ int main(){
 
 	cout << mp2.empty() << '\n';
 
-
+*/
 
 	return 0;
 
